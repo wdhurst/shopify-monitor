@@ -130,7 +130,9 @@ class Monitor extends events {
                     }
                     // @DEBUG: 
                     // console.log(productDetails);
+                    console.log('CHECKING NEW ITEM FOR KEYWORDS')
                     if (this.productContainsKeywords(product)) {
+                        console.log('NEW ITEM MATCHED KEYWORD')
                         this.emit('newProduct', productDetails);
                     }
                 })
@@ -154,6 +156,7 @@ class Monitor extends events {
             restockedVariants: []
         }
         if (this.productContainsKeywords(product)) {
+            console.log(`KEYWORD MATCH, CHECKING FOR RESTOCK`);
             product.variants.forEach((variant) => {
                 if (variant.available && !oldProduct.variants.find((_variant) => _variant.id == variant.id).available) {
                     restockDetails.restockedVariants.push(variant);
@@ -170,13 +173,14 @@ class Monitor extends events {
         }
     }
 
-    productContainsKeywords = async (product) => {
-        this.keywords.forEach((keyword) => {
-            console.log(keyword, product.handle);
-            if (product.handle.includes(keyword)) {
+    productContainsKeywords = (product) => {
+        
+        for (var i = 0; i < this.keywords.length; i++) {
+            console.log(this.keywords[i], product.handle, product.handle.indexOf(this.keywords[i]));
+            if (product.handle.indexOf(this.keywords[i]) != -1) {
                 return true;
             }
-        });
+        }
         return false;
     }
 }
