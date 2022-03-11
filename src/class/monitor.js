@@ -174,13 +174,11 @@ class Monitor extends events {
     }
 
     productContainsKeywords = (product) => {
-        
         for (var i = 0; i < this.keywords.length; i++) {
-            console.log(this.keywords[i], product.handle, product.handle.indexOf(this.keywords[i]));
             if (product.handle.indexOf(this.keywords[i]) != -1) {
                 return true;
             }
-        }
+        };
         return false;
     }
 }
