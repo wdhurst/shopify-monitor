@@ -130,7 +130,9 @@ class Monitor extends events {
                     }
                     // @DEBUG: 
                     // console.log(productDetails);
+                    console.log('CHECKING NEW ITEM FOR KEYWORDS')
                     if (this.productContainsKeywords(product)) {
+                        console.log('NEW ITEM MATCHED KEYWORD')
                         this.emit('newProduct', productDetails);
                     }
                 })
@@ -154,6 +156,7 @@ class Monitor extends events {
             restockedVariants: []
         }
         if (this.productContainsKeywords(product)) {
+            console.log(`KEYWORD MATCH, CHECKING FOR RESTOCK`);
             product.variants.forEach((variant) => {
                 if (variant.available && !oldProduct.variants.find((_variant) => _variant.id == variant.id).available) {
                     restockDetails.restockedVariants.push(variant);
